@@ -30,11 +30,6 @@ const board = (function () {
     },
     is_valid_move(sq) {
       return sq >= 0 && sq <= 8 && this.squares[sq] == EMPTY;
-    },
-    print() {
-      for (let i = 0; i < 9; i++) {
-        document.querySelector(`[data-num="${i}"]`).innerText = this.squares[i];
-      }
     }
   }
 })();
@@ -59,7 +54,7 @@ const gameController = (({ p1, p2, board }) => ({
       this.change_turn();
       console.log(this.board.squares);
     }
-    this.board.print();
+    displayController.update();
     if (this.board.winner() != undefined) {
       this.displayWinner();
     }
@@ -74,11 +69,19 @@ const gameController = (({ p1, p2, board }) => ({
   },
   start() {
     this.board.reset();
-    this.board.print();
+    displayController.update()
     this.in_progress = true;
     this.change_turn();
   }
 }))({ p1, p2, board });
+
+displayController = (() => ({
+  update() {
+    for (let i = 0; i < 9; i++) {
+      document.querySelector(`[data-num="${i}"]`).innerText = board.squares[i];
+    }
+  }
+}))();
 
 // Interactivity listeners
 
