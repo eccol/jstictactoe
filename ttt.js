@@ -32,9 +32,6 @@ const board = (function () {
       return sq >= 0 && sq <= 8 && this.squares[sq] == EMPTY;
     },
     print() {
-      console.log(this.squares[0], this.squares[1], this.squares[2]);
-      console.log(this.squares[3], this.squares[4], this.squares[5]);
-      console.log(this.squares[6], this.squares[7], this.squares[8]);
       for (let i = 0; i < 9; i++) {
         document.querySelector(`[data-num="${i}"]`).innerText = this.squares[i];
       }
@@ -45,7 +42,7 @@ const board = (function () {
 const gameController = (({ p1, p2, board }) => ({
   p1,
   p2,
-  current_turn: p1,
+  current_turn: p2,
   board,
   in_progress: false,
   change_turn() {
@@ -54,6 +51,7 @@ const gameController = (({ p1, p2, board }) => ({
     } else {
       this.current_turn = p1;
     }
+    document.querySelector(".info").innerText = `${this.current_turn.symbol}'s turn.`
   },
   place(sq) {
     if (this.board.is_valid_move(sq)) {
@@ -68,13 +66,17 @@ const gameController = (({ p1, p2, board }) => ({
   },
   displayWinner() {
     this.in_progress = false;
-    console.log(this.board.winner(), "wins");
-    window.alert(this.board.winner(), "wins")
+    if (this.board.winner() == "TIE") {
+      document.querySelector(".info").innerText = `It's a tie!`
+    } else {
+      document.querySelector(".info").innerText = `${this.board.winner()} wins!`
+    }
   },
   start() {
     this.board.reset();
     this.board.print();
     this.in_progress = true;
+    this.change_turn();
   }
 }))({ p1, p2, board });
 
