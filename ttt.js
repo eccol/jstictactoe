@@ -45,6 +45,7 @@ const gameController = (({ p1, p2, board }) => ({
   p2,
   current_turn: p1,
   board,
+  in_progress: false,
   change_turn() {
     if (this.current_turn === p1) {
       this.current_turn = p2;
@@ -58,24 +59,33 @@ const gameController = (({ p1, p2, board }) => ({
       this.change_turn();
       console.log(this.board.squares);
     }
-  },
-  play() {
-    this.board.reset();
-    while (this.board.winner() == undefined) {
-      this.board.print();
-      move = window.prompt(this.current_turn);
-      this.place(move);
-      if (move == 'q') {
-        return;
-      }
-    }
     this.board.print();
+    if (this.board.winner() != undefined) {
+      this.displayWinner();
+    }
+  },
+  displayWinner() {
+    this.in_progress = false;
     console.log(this.board.winner(), "wins");
+    window.alert(this.board.winner(), "wins")
+  },
+  start() {
+    this.board.reset();
+    this.board.print();
+    this.in_progress = true;
   }
 }))({ p1, p2, board });
 
 // Interactivity listeners
 
 document.querySelector(".start").addEventListener("click", () => {
-  gameController.play();
+  gameController.start();
 });
+
+for (let i = 0; i < 9; i++) {
+  document.querySelector(`[data-num="${i}"]`).addEventListener("click", () => {
+    if (gameController.in_progress) {
+      gameController.place(i);
+    }
+  })
+};
