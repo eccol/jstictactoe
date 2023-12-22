@@ -19,6 +19,8 @@ const board = (function () {
       } else if (this.squares[4] != EMPTY && ((this.squares[4] == this.squares[3] && this.squares[3] == this.squares[5]) ||
         this.squares[4] == this.squares[1] && this.squares[1] == this.squares[7])) {
         return this.squares[4];
+      } else if (this.squares.every(e => e != EMPTY)) {
+        return "TIE"
       } else {
         return undefined;
       }
