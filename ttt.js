@@ -6,7 +6,7 @@ const p1 = createUser({ symbol: "X" });
 const p2 = createUser({ symbol: "O" });
 
 const board = (function () {
-  const EMPTY = '-';
+  const EMPTY = ' ';
   return {
     winner() {
       if (this.squares[0] != EMPTY && ((this.squares[0] == this.squares[1] && this.squares[1] == this.squares[2]) ||
@@ -29,7 +29,7 @@ const board = (function () {
       this.squares = Array(9).fill(EMPTY);
     },
     is_valid_move(sq) {
-      return sq >= 0 && sq <= 8 && this.squares[sq] == '-';
+      return sq >= 0 && sq <= 8 && this.squares[sq] == EMPTY;
     },
     print() {
       console.log(this.squares[0], this.squares[1], this.squares[2]);
