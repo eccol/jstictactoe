@@ -5,32 +5,35 @@ const createUser = ({ symbol }) => ({
 const p1 = createUser({ symbol: "X" });
 const p2 = createUser({ symbol: "O" });
 
-const board = (() => ({
-  squares: ['-', '-', '-', '-', '-', '-', '-', '-', '-'],
-  winner() {
-    if (this.squares[0] != "-" && ((this.squares[0] == this.squares[1] && this.squares[1] == this.squares[2]) ||
-      this.squares[0] == this.squares[3] && this.squares[3] == this.squares[6] ||
-      this.squares[0] == this.squares[4] && this.squares[4] == this.squares[8])) {
-      return this.squares[0];
-    } else if (this.squares[8] != "-" && ((this.squares[8] == this.squares[5] && this.squares[5] == this.squares[2]) ||
-      this.squares[8] == this.squares[7] && this.squares[7] == this.squares[6])) {
-      return this.squares[8];
-    } else if (this.squares[4] != '-' && ((this.squares[4] == this.squares[3] && this.squares[3] == this.squares[5]) ||
-      this.squares[4] == this.squares[1] && this.squares[1] == this.squares[7])) {
-      return this.squares[4];
-    } else {
-      return undefined;
+const board = (function () {
+  const EMPTY = '-';
+  return {
+    squares: Array(9).fill(EMPTY),
+    winner() {
+      if (this.squares[0] != EMPTY && ((this.squares[0] == this.squares[1] && this.squares[1] == this.squares[2]) ||
+        this.squares[0] == this.squares[3] && this.squares[3] == this.squares[6] ||
+        this.squares[0] == this.squares[4] && this.squares[4] == this.squares[8])) {
+        return this.squares[0];
+      } else if (this.squares[8] != EMPTY && ((this.squares[8] == this.squares[5] && this.squares[5] == this.squares[2]) ||
+        this.squares[8] == this.squares[7] && this.squares[7] == this.squares[6])) {
+        return this.squares[8];
+      } else if (this.squares[4] != EMPTY && ((this.squares[4] == this.squares[3] && this.squares[3] == this.squares[5]) ||
+        this.squares[4] == this.squares[1] && this.squares[1] == this.squares[7])) {
+        return this.squares[4];
+      } else {
+        return undefined;
+      }
+    },
+    is_valid_move(sq) {
+      return sq >= 0 && sq <= 8 && this.squares[sq] == '-';
+    },
+    print() {
+      console.log(this.squares[0], this.squares[1], this.squares[2]);
+      console.log(this.squares[3], this.squares[4], this.squares[5]);
+      console.log(this.squares[6], this.squares[7], this.squares[8]);
     }
-  },
-  is_valid_move(sq) {
-    return sq >= 0 && sq <= 8 && this.squares[sq] == '-';
-  },
-  print() {
-    console.log(this.squares[0], this.squares[1], this.squares[2]);
-    console.log(this.squares[3], this.squares[4], this.squares[5]);
-    console.log(this.squares[6], this.squares[7], this.squares[8]);
   }
-}))();
+})();
 
 const gameController = (({ p1, p2, board }) => ({
   p1,
