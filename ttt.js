@@ -33,6 +33,9 @@ const board = (function () {
       console.log(this.squares[0], this.squares[1], this.squares[2]);
       console.log(this.squares[3], this.squares[4], this.squares[5]);
       console.log(this.squares[6], this.squares[7], this.squares[8]);
+      for (let i = 0; i < 9; i++) {
+        document.querySelector(`[data-num="${i}"]`).innerText = this.squares[i];
+      }
     }
   }
 })();
