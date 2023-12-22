@@ -8,7 +8,6 @@ const p2 = createUser({ symbol: "O" });
 const board = (function () {
   const EMPTY = '-';
   return {
-    squares: Array(9).fill(EMPTY),
     winner() {
       if (this.squares[0] != EMPTY && ((this.squares[0] == this.squares[1] && this.squares[1] == this.squares[2]) ||
         this.squares[0] == this.squares[3] && this.squares[3] == this.squares[6] ||
@@ -23,6 +22,9 @@ const board = (function () {
       } else {
         return undefined;
       }
+    },
+    reset() {
+      this.squares = Array(9).fill(EMPTY);
     },
     is_valid_move(sq) {
       return sq >= 0 && sq <= 8 && this.squares[sq] == '-';
@@ -55,6 +57,7 @@ const gameController = (({ p1, p2, board }) => ({
     }
   },
   play() {
+    this.board.reset();
     while (this.board.winner() == undefined) {
       this.board.print();
       move = window.prompt(this.current_turn);
@@ -67,3 +70,9 @@ const gameController = (({ p1, p2, board }) => ({
     console.log(this.board.winner(), "wins");
   }
 }))({ p1, p2, board });
+
+// Interactivity listeners
+
+document.querySelector(".start").addEventListener("click", () => {
+  gameController.play();
+});
