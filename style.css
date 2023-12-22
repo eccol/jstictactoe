@@ -1,0 +1,11 @@
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: auto;
+  width: min(100%, 500px);
+}
+
+.tile {
+  border: 1px solid black;
+  padding-bottom: 100%;
+}
