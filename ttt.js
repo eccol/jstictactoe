@@ -15,6 +15,9 @@ const board = (() => ({
     } else if (this.squares[8] != "-" && ((this.squares[8] == this.squares[5] && this.squares[5] == this.squares[2]) ||
       this.squares[8] == this.squares[7] && this.squares[7] == this.squares[6])) {
       return this.squares[8];
+    } else if (this.squares[4] != '-' && ((this.squares[4] == this.squares[3] && this.squares[3] == this.squares[5]) ||
+      this.squares[4] == this.squares[1] && this.squares[1] == this.squares[7])) {
+      return this.squares[4];
     } else {
       return undefined;
     }
@@ -57,6 +60,7 @@ const gameController = (({ p1, p2, board }) => ({
         return;
       }
     }
+    this.board.print();
     console.log(this.board.winner(), "wins");
   }
 }))({ p1, p2, board });
