@@ -5,24 +5,18 @@ const createUser = ({ symbol, name }) => ({
 
 const board = (function () {
   const EMPTY = ' ';
+  const WINNING_COMBOS = [
+    [0, 1, 2], [3, 4, 5], [6, 7, 8],
+    [0, 3, 6], [1, 4, 7], [2, 5, 8],
+    [0, 4, 8], [2, 4, 6]
+  ];
   return {
     winner() {
-      if (this.squares[0] != EMPTY && ((this.squares[0] == this.squares[1] && this.squares[1] == this.squares[2]) ||
-        this.squares[0] == this.squares[3] && this.squares[3] == this.squares[6] ||
-        this.squares[0] == this.squares[4] && this.squares[4] == this.squares[8])) {
-        return this.squares[0];
-      } else if (this.squares[8] != EMPTY && ((this.squares[8] == this.squares[5] && this.squares[5] == this.squares[2]) ||
-        this.squares[8] == this.squares[7] && this.squares[7] == this.squares[6])) {
-        return this.squares[8];
-      } else if (this.squares[4] != EMPTY && ((this.squares[4] == this.squares[3] && this.squares[3] == this.squares[5]) ||
-        this.squares[4] == this.squares[1] && this.squares[1] == this.squares[7])) {
-        return this.squares[4];
-      } else if (this.squares[2] != EMPTY && (this.squares[2] == this.squares[4] && this.squares[4] == this.squares[6])) {
-        return this.squares[2];
-      } else if (this.squares.every(e => e != EMPTY)) {
-        return "TIE"
-      } else {
-        return undefined;
+      for (const combo of WINNING_COMBOS) {
+        const [a, b, c] = combo;
+        if (this.squares[a] != EMPTY && (this.squares[a] == this.squares[b] && this.squares[b] == this.squares[c])) {
+          return this.squares[a];
+        }
       }
     },
     reset() {
