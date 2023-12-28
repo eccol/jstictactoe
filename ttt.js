@@ -1,9 +1,7 @@
-const createUser = ({ symbol }) => ({
+const createUser = ({ symbol, name }) => ({
   symbol,
+  name,
 });
-
-const p1 = createUser({ symbol: "X" });
-const p2 = createUser({ symbol: "O" });
 
 const board = (function () {
   const EMPTY = ' ';
@@ -36,19 +34,17 @@ const board = (function () {
   }
 })();
 
-const gameController = (({ p1, p2, board }) => ({
-  p1,
-  p2,
-  current_turn: p2,
+const gameController = (({ board }) => ({
+  current_turn: this.p2,
   board,
   in_progress: false,
   change_turn() {
-    if (this.current_turn === p1) {
-      this.current_turn = p2;
+    if (this.current_turn === this.p1) {
+      this.current_turn = this.p2;
     } else {
-      this.current_turn = p1;
+      this.current_turn = this.p1;
     }
-    document.querySelector(".info").innerText = `${this.current_turn.symbol}'s turn.`
+    document.querySelector(".info").innerText = `${this.current_turn.name}'s turn.`
   },
   place(sq) {
     if (this.board.is_valid_move(sq)) {
@@ -66,16 +62,22 @@ const gameController = (({ p1, p2, board }) => ({
     if (this.board.winner() == "TIE") {
       document.querySelector(".info").innerText = `It's a tie!`
     } else {
-      document.querySelector(".info").innerText = `${this.board.winner()} wins!`
+      if (this.board.winner() == this.p1.symbol) {
+        document.querySelector(".info").innerText = `${this.p1.name} wins!`
+      } else {
+        document.querySelector(".info").innerText = `${this.p2.name} wins!`
+      }
     }
   },
   start() {
+    this.p1 = createUser({ symbol: "X", name: document.getElementById("xName").value });
+    this.p2 = createUser({ symbol: "O", name: document.getElementById("oName").value });
     this.board.reset();
     displayController.update()
     this.in_progress = true;
     this.change_turn();
   }
-}))({ p1, p2, board });
+}))({ board });
 
 displayController = (() => ({
   update() {
