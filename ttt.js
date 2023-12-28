@@ -67,8 +67,8 @@ const gameController = (({ board }) => ({
     }
   },
   start() {
-    this.p1 = createUser({ symbol: "X", name: document.getElementById("xName").value });
-    this.p2 = createUser({ symbol: "O", name: document.getElementById("oName").value });
+    this.p1 = createUser({ symbol: "X", name: document.getElementById("xName").value || "X" });
+    this.p2 = createUser({ symbol: "O", name: document.getElementById("oName").value || "O" });
     this.board.reset();
     displayController.update()
     this.in_progress = true;
