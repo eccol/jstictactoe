@@ -18,6 +18,7 @@ const board = (function () {
           return this.squares[a];
         }
       }
+      return null;
     },
     reset() {
       this.squares = Array(9).fill(EMPTY);
@@ -47,7 +48,7 @@ const gameController = (({ board }) => ({
       console.log(this.board.squares);
     }
     displayController.update();
-    if (this.board.winner() != undefined) {
+    if (this.board.winner() != null) {
       this.displayWinner();
     }
   },
