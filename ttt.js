@@ -39,7 +39,7 @@ const gameController = (({ board }) => ({
     } else {
       this.current_turn = this.p1;
     }
-    document.querySelector(".info").innerText = `${this.current_turn.name}'s turn.`
+    document.querySelector(".info").innerText = `${this.current_turn.name}'s turn.`;
   },
   place(sq) {
     if (this.board.is_valid_move(sq)) {
@@ -56,16 +56,16 @@ const gameController = (({ board }) => ({
     this.in_progress = false;
     this.change_turn();
     if (this.board.winner() == "TIE") {
-      document.querySelector(".info").innerText = `It's a tie!`
+      document.querySelector(".info").innerText = `It's a tie!`;
     } else {
-      document.querySelector(".info").innerText = `${this.current_turn.name} wins!`
+      document.querySelector(".info").innerText = `${this.current_turn.name} wins!`;
     }
   },
   start() {
     this.p1 = createUser({ symbol: "X", name: document.getElementById("xName").value || "X" });
     this.p2 = createUser({ symbol: "O", name: document.getElementById("oName").value || "O" });
     this.board.reset();
-    displayController.update()
+    displayController.update();
     this.in_progress = true;
     this.change_turn();
   }
