@@ -19,3 +19,13 @@
 .start {
   margin: 1rem 0;
 }
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  width: min-content;
+}
+
+.controls input {
+  margin-bottom: .3rem;
+}
