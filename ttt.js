@@ -59,14 +59,11 @@ const gameController = (({ board }) => ({
   },
   displayWinner() {
     this.in_progress = false;
+    this.change_turn();
     if (this.board.winner() == "TIE") {
       document.querySelector(".info").innerText = `It's a tie!`
     } else {
-      if (this.board.winner() == this.p1.symbol) {
-        document.querySelector(".info").innerText = `${this.p1.name} wins!`
-      } else {
-        document.querySelector(".info").innerText = `${this.p2.name} wins!`
-      }
+      document.querySelector(".info").innerText = `${this.current_turn.name} wins!`
     }
   },
   start() {
