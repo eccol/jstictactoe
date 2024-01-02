@@ -71,7 +71,7 @@ const gameController = (({ board }) => ({
   }
 }))({ board });
 
-displayController = (function () {
+const displayController = (function () {
   const infoBox = document.querySelector(".info");
   return {
     updateSquares() {
