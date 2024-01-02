@@ -39,7 +39,7 @@ const gameController = (({ board }) => ({
     } else {
       this.current_turn = this.p1;
     }
-    document.querySelector(".info").innerText = `${this.current_turn.name}'s turn.`;
+    displayController.updateInfo(`${this.current_turn.name}'s turn.`);
   },
   place(sq) {
     if (this.board.is_valid_move(sq)) {
@@ -47,7 +47,7 @@ const gameController = (({ board }) => ({
       this.change_turn();
       console.log(this.board.squares);
     }
-    displayController.update();
+    displayController.updateSquares();
     if (this.board.winner() != null) {
       this.displayWinner();
     }
@@ -56,28 +56,34 @@ const gameController = (({ board }) => ({
     this.in_progress = false;
     this.change_turn();
     if (this.board.winner() == "TIE") {
-      document.querySelector(".info").innerText = `It's a tie!`;
+      displayController.updateInfo("It's a tie!");
     } else {
-      document.querySelector(".info").innerText = `${this.current_turn.name} wins!`;
+      displayController.updateInfo(`${this.current_turn.name} wins!`);
     }
   },
   start() {
     this.p1 = createUser({ symbol: "X", name: document.getElementById("xName").value || "X" });
     this.p2 = createUser({ symbol: "O", name: document.getElementById("oName").value || "O" });
     this.board.reset();
-    displayController.update();
+    displayController.updateSquares();
     this.in_progress = true;
     this.change_turn();
   }
 }))({ board });
 
-displayController = (() => ({
-  update() {
-    for (let i = 0; i < 9; i++) {
-      document.querySelector(`[data-num="${i}"]`).innerText = board.squares[i];
+displayController = (function () {
+  const infoBox = document.querySelector(".info");
+  return {
+    updateSquares() {
+      for (let i = 0; i < 9; i++) {
+        document.querySelector(`[data-num="${i}"]`).innerText = board.squares[i];
+      }
+    },
+    updateInfo(msg) {
+      infoBox.innerText = msg;
     }
   }
-}))();
+})();
 
 // Interactivity listeners
 
