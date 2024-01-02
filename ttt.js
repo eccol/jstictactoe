@@ -85,16 +85,18 @@ const displayController = (function () {
   }
 })();
 
-// Interactivity listeners
+// Create event listeners
 
-document.querySelector(".start").addEventListener("click", () => {
-  gameController.start();
-});
+(function () {
+  document.querySelector(".start").addEventListener("click", () => {
+    gameController.start();
+  });
 
-for (let i = 0; i < 9; i++) {
-  document.querySelector(`[data-num="${i}"]`).addEventListener("click", () => {
-    if (gameController.in_progress) {
-      gameController.place(i);
-    }
-  })
-};
+  for (let i = 0; i < 9; i++) {
+    document.querySelector(`[data-num="${i}"]`).addEventListener("click", () => {
+      if (gameController.in_progress) {
+        gameController.place(i);
+      }
+    })
+  }
+})();
