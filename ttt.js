@@ -48,7 +48,6 @@ const gameController = (({ board }) => ({
     if (this.board.is_valid_move(sq)) {
       this.board.place(sq, this.current_player);
       this.change_turn();
-      console.log(this.board.squares);
     }
     displayController.updateSquares();
     if (this.board.winner() != null) {
