@@ -25,25 +25,28 @@ const board = (function () {
     },
     is_valid_move(sq) {
       return sq >= 0 && sq <= 8 && this.squares[sq] == EMPTY;
+    },
+    place(sq, player) {
+      this.squares[sq] = player.symbol;
     }
   }
 })();
 
 const gameController = (({ board }) => ({
-  current_turn: this.p2,
+  current_player: this.p2,
   board,
   in_progress: false,
   change_turn() {
-    if (this.current_turn === this.p1) {
-      this.current_turn = this.p2;
+    if (this.current_player === this.p1) {
+      this.current_player = this.p2;
     } else {
-      this.current_turn = this.p1;
+      this.current_player = this.p1;
     }
-    displayController.updateInfo(`${this.current_turn.name}'s turn.`);
+    displayController.updateInfo(`${this.current_player.name}'s turn.`);
   },
-  place(sq) {
+  makeMove(sq) {
     if (this.board.is_valid_move(sq)) {
-      this.board.squares[sq] = this.current_turn.symbol;
+      this.board.place(sq, this.current_player);
       this.change_turn();
       console.log(this.board.squares);
     }
@@ -58,7 +61,7 @@ const gameController = (({ board }) => ({
     if (this.board.winner() == "TIE") {
       displayController.updateInfo("It's a tie!");
     } else {
-      displayController.updateInfo(`${this.current_turn.name} wins!`);
+      displayController.updateInfo(`${this.current_player.name} wins!`);
     }
   },
   start() {
@@ -95,7 +98,7 @@ const displayController = (function () {
   for (let i = 0; i < 9; i++) {
     document.querySelector(`[data-num="${i}"]`).addEventListener("click", () => {
       if (gameController.in_progress) {
-        gameController.place(i);
+        gameController.makeMove(i);
       }
     })
   }
