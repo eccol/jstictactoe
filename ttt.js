@@ -44,48 +44,53 @@ const board = (function () {
   }
 })();
 
-const gameController = (({ board }) => ({
-  current_player: this.p2,
-  board,
-  in_progress: false,
-  change_turn() {
-    if (this.current_player === this.p1) {
-      this.current_player = this.p2;
+const gameController = (({ board }) => {
+  let _in_progress = false;
+  const change_turn = () => {
+    if (this.current_player === p1) {
+      current_player = p2;
     } else {
-      this.current_player = this.p1;
+      current_player = p1;
     }
     displayController.updateInfo(`${this.current_player.name}'s turn.`);
-  },
-  makeMove(sq) {
-    if (this.board.is_valid_move(sq)) {
-      this.board.place(sq, this.current_player);
-      this.change_turn();
+  };
+  const makeMove = (sq) => {
+    if (board.is_valid_move(sq)) {
+      board.place(sq, current_player);
+      change_turn();
     }
     displayController.updateSquares();
-    if (this.board.winner() != null) {
-      this.displayWinner();
+    if (board.winner() != null) {
+      displayWinner();
     }
-  },
-  displayWinner() {
-    this.in_progress = false;
+  };
+  const displayWinner = () => {
+    _in_progress = false;
     displayController.toggleFields();
-    this.change_turn();
-    if (this.board.winner() == "TIE") {
+    change_turn();
+    if (board.winner() == "TIE") {
       displayController.updateInfo("It's a tie!");
     } else {
-      displayController.updateInfo(`${this.current_player.name} wins!`);
+      displayController.updateInfo(`${current_player.name} wins!`);
     }
-  },
-  start() {
-    this.p1 = createUser({ symbol: "X", name: document.getElementById("xName").value || "X" });
-    this.p2 = createUser({ symbol: "O", name: document.getElementById("oName").value || "O" });
-    this.board.reset();
+  };
+  const start = () => {
+    p1 = createUser({ symbol: "X", name: document.getElementById("xName").value || "X" });
+    p2 = createUser({ symbol: "O", name: document.getElementById("oName").value || "O" });
+    board.reset();
     displayController.updateSquares();
-    this.in_progress = true;
+    _in_progress = true;
     displayController.toggleFields();
-    this.change_turn();
+    change_turn();
+  };
+
+  const in_progress = () => { return _in_progress }
+  return {
+    start,
+    in_progress,
+    makeMove
   }
-}))({ board });
+})({ board });
 
 const displayController = (function () {
   const infoBox = document.querySelector(".info");
@@ -121,7 +126,7 @@ const displayController = (function () {
 
   for (let i = 0; i < 9; i++) {
     document.querySelector(`[data-num="${i}"]`).addEventListener("click", () => {
-      if (gameController.in_progress) {
+      if (gameController.in_progress()) {
         gameController.makeMove(i);
       }
     })
