@@ -29,8 +29,7 @@ const board = (function () {
     reset() {
       this.squares = Array(9).fill(EMPTY);
       for (let i = 0; i < 9; i++) {
-        document.querySelector(`[data-num="${i}"]`).classList.remove("X");
-        document.querySelector(`[data-num="${i}"]`).classList.remove("O");
+        document.querySelector(`[data-num="${i}"]`).className = "tile";
       }
     },
     is_valid_move(sq) {
