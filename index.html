@@ -11,7 +11,14 @@
 
 <body>
 
-  <div class="info">Press Start!</div>
+  <div class="controls">
+    <div class="info">Press Start!</div>
+    <button class="start" type="button">Start</button>
+    <label for="xName">Player X Name</label>
+    <input type="text" name="xName" id="xName">
+    <label for="oName">Player O Name</label>
+    <input type="text" name="oName" id="oName">
+  </div>
 
   <div class="board">
     <div class="tile" data-num="0">0</div>
@@ -23,14 +30,6 @@
     <div class="tile" data-num="6">6</div>
     <div class="tile" data-num="7">7</div>
     <div class="tile" data-num="8">8</div>
-  </div>
-
-  <div class="controls">
-    <button class="start" type="button">Start</button>
-    <label for="xName">Player X Name</label>
-    <input type="text" name="xName" id="xName">
-    <label for="oName">Player O Name</label>
-    <input type="text" name="oName" id="oName">
   </div>
 
 </body>

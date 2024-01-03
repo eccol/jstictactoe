@@ -1,7 +1,19 @@
+/* Colors */
+
 :root {
   --x-color: lightgreen;
   --o-color: pink;
 }
+
+.X {
+  background-color: var(--x-color);
+}
+
+.O {
+  background-color: var(--o-color);
+}
+
+/* Board layout */
 
 .board {
   display: grid;
@@ -21,6 +33,8 @@
   font-size: 75px;
 }
 
+/* Controls layout */
+
 .start {
   margin: 1rem 0;
 }
@@ -29,16 +43,17 @@
   display: flex;
   flex-direction: column;
   width: min-content;
+  padding: 1rem;
+  align-self: center;
 }
 
 .controls input {
   margin-bottom: .3rem;
 }
 
-.X {
-  background-color: var(--x-color);
-}
+/* Page layout */
 
-.O {
-  background-color: var(--o-color);
+body {
+  display: flex;
+  justify-content: center;
 }
