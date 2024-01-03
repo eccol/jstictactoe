@@ -61,3 +61,10 @@ body {
   display: flex;
   justify-content: center;
 }
+
+@media (max-width: 710px) {
+  body {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+}
