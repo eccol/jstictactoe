@@ -3,6 +3,7 @@
 :root {
   --x-color: lightgreen;
   --o-color: pink;
+  --win-color: cornflowerblue;
 }
 
 .X {
@@ -11,6 +12,10 @@
 
 .O {
   background-color: var(--o-color);
+}
+
+.win {
+  background-color: var(--win-color);
 }
 
 /* Board layout */

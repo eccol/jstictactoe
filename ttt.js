@@ -15,6 +15,9 @@ const board = (function () {
       for (const combo of WINNING_COMBOS) {
         const [a, b, c] = combo;
         if (this.squares[a] != EMPTY && (this.squares[a] == this.squares[b] && this.squares[b] == this.squares[c])) {
+          for (let x of combo) {
+            document.querySelector(`[data-num="${x}"]`).classList.add("win");
+          }
           return this.squares[a];
         }
       }
