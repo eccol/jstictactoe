@@ -89,6 +89,11 @@ const displayController = (function () {
     },
     updateInfo(msg) {
       infoBox.innerText = msg;
+      if (!gameController.in_progress) {
+        infoBox.classList.add("bold");
+      } else {
+        infoBox.classList.remove("bold");
+      }
     }
   }
 })();

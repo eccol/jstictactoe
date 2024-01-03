@@ -39,6 +39,10 @@
   margin: 1rem 0;
 }
 
+.info.bold {
+  font-weight: bold;
+}
+
 .controls {
   display: flex;
   flex-direction: column;
