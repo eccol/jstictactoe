@@ -18,6 +18,9 @@ const board = (function () {
           return this.squares[a];
         }
       }
+      if (this.squares.every(e => e != EMPTY)) {
+        return "TIE";
+      }
       return null;
     },
     reset() {
