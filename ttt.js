@@ -66,6 +66,7 @@ const gameController = (({ board }) => ({
   },
   displayWinner() {
     this.in_progress = false;
+    displayController.toggleFields();
     this.change_turn();
     if (this.board.winner() == "TIE") {
       displayController.updateInfo("It's a tie!");
@@ -79,6 +80,7 @@ const gameController = (({ board }) => ({
     this.board.reset();
     displayController.updateSquares();
     this.in_progress = true;
+    displayController.toggleFields();
     this.change_turn();
   }
 }))({ board });
@@ -97,6 +99,12 @@ const displayController = (function () {
         infoBox.classList.add("bold");
       } else {
         infoBox.classList.remove("bold");
+      }
+    },
+    toggleFields() {
+      const fields = document.getElementsByClassName("nameInput");
+      for (const field of fields) {
+        field.disabled = !field.disabled;
       }
     }
   }
