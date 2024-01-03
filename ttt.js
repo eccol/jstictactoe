@@ -25,6 +25,10 @@ const board = (function () {
     },
     reset() {
       this.squares = Array(9).fill(EMPTY);
+      for (let i = 0; i < 9; i++) {
+        document.querySelector(`[data-num="${i}"]`).classList.remove("X");
+        document.querySelector(`[data-num="${i}"]`).classList.remove("O");
+      }
     },
     is_valid_move(sq) {
       return sq >= 0 && sq <= 8 && this.squares[sq] == EMPTY;
