@@ -31,6 +31,9 @@ const board = (function () {
     },
     place(sq, player) {
       this.squares[sq] = player.symbol;
+      // X and O are hard coded in the CSS. If a feature to change symbols
+      // is added, this will have to be changed somehow.
+      document.querySelector(`[data-num="${sq}"]`).classList.add(player.symbol);
     }
   }
 })();
